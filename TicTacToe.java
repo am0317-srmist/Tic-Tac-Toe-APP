@@ -1,45 +1,36 @@
-import java.util.Random;
+import java.util.Scanner;
 
 public class TicTacToe {
 
-    static boolean isHumanTurn;
-    static char humanSymbol;
-    static char computerSymbol;
+    // Function to get user input
+    public static int getUserInput(Scanner sc) {
+        int slot;
+
+        while (true) {
+            System.out.print("Enter a slot number (1-9): ");
+
+            // Check if input is integer
+            if (sc.hasNextInt()) {
+                slot = sc.nextInt();
+
+                if (slot >= 1 && slot <= 9) {
+                    return slot; // valid input
+                } else {
+                    System.out.println("Invalid choice! Enter between 1 and 9.");
+                }
+            } else {
+                System.out.println("Invalid input! Enter a number.");
+                sc.next(); // discard invalid input
+            }
+        }
+    }
 
     public static void main(String[] args) {
-        tossAndAssignSymbols();
-        displayTossResult();
-    }
+        Scanner sc = new Scanner(System.in);
 
-    // Perform toss and assign symbols
-    static void tossAndAssignSymbols() {
-        Random rand = new Random();
-        int toss = rand.nextInt(2); // 0 or 1
+        int userSlot = getUserInput(sc);
+        System.out.println("You selected slot: " + userSlot);
 
-        if (toss == 0) {
-            isHumanTurn = true;
-            humanSymbol = 'X';
-            computerSymbol = 'O';
-        } else {
-            isHumanTurn = false;
-            humanSymbol = 'O';
-            computerSymbol = 'X';
-        }
-    }
-
-    // Display result of toss
-    static void displayTossResult() {
-        System.out.println("===== Toss Result =====");
-
-        if (isHumanTurn) {
-            System.out.println("You won the toss!");
-            System.out.println("You play first.");
-        } else {
-            System.out.println("Computer won the toss!");
-            System.out.println("Computer plays first.");
-        }
-
-        System.out.println("Your symbol: " + humanSymbol);
-        System.out.println("Computer symbol: " + computerSymbol);
+        sc.close();
     }
 }
