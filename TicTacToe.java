@@ -1,36 +1,19 @@
-import java.util.Scanner;
-
 public class TicTacToe {
 
-    // Function to get user input
-    public static int getUserInput(Scanner sc) {
-        int slot;
+    // Convert slot (1–9) → row & column (0–2)
+    public static int[] convertToIndex(int slot) {
+        int row = (slot - 1) / 3;   // integer division
+        int col = (slot - 1) % 3;   // remainder
 
-        while (true) {
-            System.out.print("Enter a slot number (1-9): ");
-
-            // Check if input is integer
-            if (sc.hasNextInt()) {
-                slot = sc.nextInt();
-
-                if (slot >= 1 && slot <= 9) {
-                    return slot; // valid input
-                } else {
-                    System.out.println("Invalid choice! Enter between 1 and 9.");
-                }
-            } else {
-                System.out.println("Invalid input! Enter a number.");
-                sc.next(); // discard invalid input
-            }
-        }
+        return new int[]{row, col};
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        int slot = 5; // example input
 
-        int userSlot = getUserInput(sc);
-        System.out.println("You selected slot: " + userSlot);
+        int[] index = convertToIndex(slot);
 
-        sc.close();
+        System.out.println("Row: " + index[0]);
+        System.out.println("Column: " + index[1]);
     }
 }
